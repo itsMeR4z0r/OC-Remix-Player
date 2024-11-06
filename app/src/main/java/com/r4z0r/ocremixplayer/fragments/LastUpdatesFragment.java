@@ -23,6 +23,7 @@ import com.r4z0r.ocremixplayer.adapters.MusicaAdapter;
 import com.r4z0r.ocremixplayer.databinding.LastUpdatesFragmentBinding;
 import com.r4z0r.ocremixplayer.listeners.EndlessRecyclerViewScrollListener;
 import com.r4z0r.ocremixplayer.tasks.GetLastSongs;
+import com.r4z0r.ocremixplayer.tasks.ResponseResultItemMusic;
 
 import org.r4z0r.models.ResultItemMusic;
 
@@ -104,7 +105,7 @@ public class LastUpdatesFragment extends Fragment {
 
     private void loadMore() {
         loadingVisivel(true);
-        new GetLastSongs(getActivity().getApplication()).execute(new GetLastSongs.Response() {
+        new GetLastSongs(OCRemixPlayerApplication.mInstance).execute(new ResponseResultItemMusic() {
             @Override
             public void onInit() {
                 System.out.println("LastUpdatesFragment ==> iniciando consulta");

@@ -8,26 +8,27 @@
     tools:context=".fragments.SearchFragment">
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/search_fragment_et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:layout_marginEnd="4dp"
         android:layout_toStartOf="@id/search_fragment_ib_search" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/search_fragment_ib_search"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/baseline_search_24"
-        android:backgroundTint="@color/laranja_primario" />
+        app:icon="@drawable/baseline_search_24"
+        app:iconGravity="top"
+        app:iconSize="24dp" />
 
     <RadioGroup
-        android:checkedButton="@id/search_fragment_rg_filter_por_titulo"
         android:id="@+id/search_fragment_rg_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_fragment_ib_search"
+        android:checkedButton="@id/search_fragment_rg_filter_por_titulo"
         android:orientation="horizontal">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -51,13 +52,19 @@
             android:textSize="16sp" />
     </RadioGroup>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_fragment_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_fragment_rg_filter">
+        android:layout_below="@id/search_fragment_rg_filter" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+    <ProgressBar
+        android:id="@+id/search_fragment_pb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/laranja_primario"
+        android:padding="8dp"
+        android:visibility="gone" />
 </RelativeLayout>
