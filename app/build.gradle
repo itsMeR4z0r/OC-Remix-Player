@@ -1,0 +1,58 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    namespace 'com.r4z0r.ocremixplayer'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.r4z0r.ocremixplayer"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
+    implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT-jar-with-dependencies.jar')
+    implementation libs.core.ktx
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    // Skip this if you don't want to use integration libraries or configure Glide.
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm
+    runtimeOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0'
+
+}

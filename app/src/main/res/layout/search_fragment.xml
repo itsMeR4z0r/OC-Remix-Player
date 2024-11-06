@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".fragments.SearchFragment">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="4dp"
+        android:layout_toStartOf="@id/search_fragment_ib_search" />
+
+    <ImageButton
+        android:id="@+id/search_fragment_ib_search"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/baseline_search_24"
+        android:backgroundTint="@color/laranja_primario" />
+
+    <RadioGroup
+        android:checkedButton="@id/search_fragment_rg_filter_por_titulo"
+        android:id="@+id/search_fragment_rg_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_fragment_ib_search"
+        android:orientation="horizontal">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/search_fragment_rg_filter_por_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elegantTextHeight="true"
+            android:tag="por_titulo"
+            android:text="por titulo"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/search_fragment_rg_filter_por_jogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elegantTextHeight="true"
+            android:tag="por_jogo"
+            android:text="por jogo"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_fragment_rg_filter">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+</RelativeLayout>

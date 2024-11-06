@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LastUpdatesFragment">
+
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.r4z0r.ocremixplayer.fragments.SearchFragment"
+        android:label="@string/pesquisar"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/LastUpdatesFragment"
+        android:name="com.r4z0r.ocremixplayer.fragments.LastUpdatesFragment"
+        android:label="@string/utimas_musicas" />
+    <fragment
+        android:id="@+id/PlaylistFragment"
+        android:label="@string/playlists" />
+</navigation>
