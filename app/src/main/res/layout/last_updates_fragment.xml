@@ -6,7 +6,7 @@
     android:transitionGroup="true"
     tools:context=".fragments.LastUpdatesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.r4z0r.ocremixplayer.components.RvMusica
         android:id="@+id/last_update_fragment_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

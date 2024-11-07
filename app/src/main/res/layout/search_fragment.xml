@@ -52,7 +52,7 @@
             android:textSize="16sp" />
     </RadioGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.r4z0r.ocremixplayer.components.RvMusica
         android:id="@+id/search_fragment_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

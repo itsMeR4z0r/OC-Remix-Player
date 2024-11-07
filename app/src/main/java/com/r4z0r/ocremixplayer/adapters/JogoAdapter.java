@@ -14,39 +14,36 @@ import com.bumptech.glide.Glide;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.converter.MusicaConverter;
+import com.r4z0r.ocremixplayer.models.Jogo;
 import com.r4z0r.ocremixplayer.models.Musica;
 import com.r4z0r.ocremixplayer.viewHolders.MusicaViewHolder;
 
 import org.r4z0r.models.ArtistItem;
+import org.r4z0r.models.ResultItemGame;
 import org.r4z0r.models.ResultItemMusic;
 
 import java.util.List;
 
-public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
-    private static final String TAG = "ItemMusicAdapter";
+public class JogoAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
+    private static final String TAG = "JogoAdapter";
     private Context mContext;
-    private List<Musica> mMusicList;
+    private List<ResultItemGame> mJogoList;
 
-    public MusicaAdapter(Context context, List<ResultItemMusic> musicList) {
+    public JogoAdapter(Context context, List<ResultItemGame> gameList) {
         mContext = context;
-        mMusicList = MusicaConverter.converterResultItem(musicList);
+        mJogoList = gameList;
     }
 
-    public void addAll(List<ResultItemMusic> musicList, boolean atualizacao) {
+    public void addAll(List<ResultItemGame> gameList) {
         int positionStart = getItemCount();
-        mMusicList.addAll(MusicaConverter.converterResultItem(musicList));
-
-        if (atualizacao)
-            OCRemixPlayerApplication.mInstance.getGlobal().getListaUltimasMusicas().addAll(musicList);
-        else
-            OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaMusica().addAll(0, musicList);
-
-        notifyItemRangeInserted(positionStart, musicList.size());
+        mJogoList.addAll(gameList);
+        OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo().addAll(gameList);
+        notifyItemRangeInserted(positionStart, gameList.size());
     }
 
-    public void setAll(List<ResultItemMusic> musicList) {
-        mMusicList.clear();
-        mMusicList.addAll(MusicaConverter.converterResultItem(musicList));
+    public void setAll(List<ResultItemGame> gameList) {
+        mJogoList.clear();
+        mJogoList.addAll(gameList);
     }
 
     @NonNull
@@ -58,20 +55,14 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MusicaViewHolder holder, int position) {
-        Musica musica = mMusicList.get(position);
+        ResultItemGame jogo = mJogoList.get(position);
 
-        holder.title.setText(musica.getName().replace("\"", "").trim());
-
-        String artist = "";
-        for (ArtistItem artistItem : musica.getArtistItemList()) {
-            artist += artistItem.getName() + ", ";
-        }
-        artist = artist.substring(0, artist.length() - 2);
-        holder.artist.setText(artist);
+        holder.title.setText(jogo.getGameTitle().replace("\"", "").trim());
+        holder.artist.setText(jogo.getSystem());
 
         Glide
                 .with(mContext)
-                .load(URL_BASE + musica.getGameImageUrl())
+                .load(URL_BASE + jogo.getSystemImage())
                 .placeholder(R.drawable.baseline_games_24)
                 .centerCrop()
                 .into(holder.imageView);
@@ -79,6 +70,6 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mMusicList.size();
+        return mJogoList.size();
     }
 }

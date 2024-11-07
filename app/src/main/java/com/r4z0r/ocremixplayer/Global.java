@@ -1,9 +1,12 @@
 package com.r4z0r.ocremixplayer;
 
 
+import android.os.Bundle;
+
 import com.r4z0r.ocremixplayer.tasks.GetLastSongs;
 
 import org.r4z0r.Wrapper;
+import org.r4z0r.models.ResultItemGame;
 import org.r4z0r.models.ResultItemMusic;
 
 import java.util.ArrayList;
@@ -20,11 +23,25 @@ public class Global {
     private int offsetAtualizacoes = 0;
 
     @Setter
+    private int offsetPesquisa = 0;
+
+    @Setter
     private int positionListaAtualizacoes = 0;
+
+    @Setter
+    private int positionListaPesquisa = 0;
 
     private final List<ResultItemMusic> listaUltimasMusicas = new ArrayList<>();
 
+    private final List<ResultItemMusic> listaPesquisaMusica = new ArrayList<>();
+
+    private final List<ResultItemGame> listaPesquisaJogo = new ArrayList<>();
+
     private final Wrapper wrapper;
+
+    @Setter
+    private Bundle searchBundle;
+
     private Global() {
         wrapper = new Wrapper();
     }

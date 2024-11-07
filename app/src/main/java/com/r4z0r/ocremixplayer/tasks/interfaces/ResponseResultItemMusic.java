@@ -1,4 +1,4 @@
-package com.r4z0r.ocremixplayer.tasks;
+package com.r4z0r.ocremixplayer.tasks.interfaces;
 
 import org.r4z0r.models.ResultItemMusic;
 
