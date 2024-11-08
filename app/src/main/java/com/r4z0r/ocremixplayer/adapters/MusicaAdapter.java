@@ -69,12 +69,12 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
         artist = artist.substring(0, artist.length() - 2);
         holder.artist.setText(artist);
 
-        Glide
-                .with(mContext)
-                .load(URL_BASE + musica.getGameImageUrl())
-                .placeholder(R.drawable.baseline_games_24)
-                .centerCrop()
-                .into(holder.imageView);
+        Glide.with(mContext).load(URL_BASE + musica.getGameImageUrl()).placeholder(R.drawable.baseline_games_24).centerCrop().into(holder.imageView);
+
+        holder.relativeLayout.setOnClickListener(view -> {
+            OCRemixPlayerApplication.mInstance.getGlobal().getNavController().navigate(R.id.songInfoFragment);
+            OCRemixPlayerApplication.mInstance.getGlobal().getBundle().putSerializable("musica", musica);
+        });
     }
 
     @Override

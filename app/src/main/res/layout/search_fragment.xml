@@ -4,30 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:padding="16dp"
     tools:context=".fragments.SearchFragment">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/search_fragment_et_search"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_fragment_til_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@id/search_fragment_ib_search" />
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/search_fragment_ib_search"
+        android:hint="Pesquisar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_fragment_et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/search_fragment_ib_search"
-        android:layout_width="40dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/search_fragment_til_search"
+        android:layout_alignBottom="@id/search_fragment_til_search"
         android:layout_alignParentEnd="true"
         app:icon="@drawable/baseline_search_24"
+        app:iconTint="@color/white"
         app:iconGravity="top"
-        app:iconSize="24dp" />
+        app:iconSize="44dp" />
 
     <RadioGroup
         android:id="@+id/search_fragment_rg_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_fragment_ib_search"
+        android:layout_below="@id/search_fragment_til_search"
         android:checkedButton="@id/search_fragment_rg_filter_por_titulo"
         android:orientation="horizontal">
 
@@ -52,11 +64,18 @@
             android:textSize="16sp" />
     </RadioGroup>
 
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/search_fragment_divider"
+        android:layout_below="@id/search_fragment_rg_filter"
+        android:layout_marginVertical="@dimen/fab_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.r4z0r.ocremixplayer.components.RvMusica
         android:id="@+id/search_fragment_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_fragment_rg_filter" />
+        android:layout_below="@id/search_fragment_divider" />
 
     <ProgressBar
         android:id="@+id/search_fragment_pb"

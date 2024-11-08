@@ -17,4 +17,9 @@
     <fragment
         android:id="@+id/PlaylistFragment"
         android:label="@string/playlists" />
+    <fragment
+        android:id="@+id/songInfoFragment"
+        android:name="com.r4z0r.ocremixplayer.fragments.SongInfoFragment"
+        android:label="Música"
+        tools:layout="@layout/song_info_fragment" />
 </navigation>

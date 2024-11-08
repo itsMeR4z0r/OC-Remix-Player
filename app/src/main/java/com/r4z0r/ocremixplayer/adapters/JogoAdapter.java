@@ -13,14 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
-import com.r4z0r.ocremixplayer.converter.MusicaConverter;
-import com.r4z0r.ocremixplayer.models.Jogo;
-import com.r4z0r.ocremixplayer.models.Musica;
 import com.r4z0r.ocremixplayer.viewHolders.MusicaViewHolder;
 
-import org.r4z0r.models.ArtistItem;
 import org.r4z0r.models.ResultItemGame;
-import org.r4z0r.models.ResultItemMusic;
 
 import java.util.List;
 

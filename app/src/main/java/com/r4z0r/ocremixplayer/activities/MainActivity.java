@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.databinding.ActivityMainBinding;
 
@@ -39,45 +40,42 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
+        OCRemixPlayerApplication.mInstance.getGlobal().setNavController(Navigation.findNavController(this, R.id.nav_host_fragment_content_main));
+        NavController navController = OCRemixPlayerApplication.mInstance.getGlobal().getNavController();
+
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (navDestination.getId() == R.id.SearchFragment) {
-                    bottomNavigationView.getMenu().findItem(R.id.menu_btn_search).setChecked(true);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                } else if (navDestination.getId() == R.id.LastUpdatesFragment) {
-                    bottomNavigationView.getMenu().findItem(R.id.menu_btn_releases).setChecked(true);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                } else if (navDestination.getId() == R.id.PlaylistFragment) {
-                    bottomNavigationView.getMenu().findItem(R.id.menu_btn_playlist).setChecked(true);
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setHomeButtonEnabled(false);
-                }
-
+        navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
+            if (navDestination.getId() == R.id.SearchFragment) {
+                bottomNavigationView.getMenu().findItem(R.id.menu_btn_search).setChecked(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeButtonEnabled(false);
+            } else if (navDestination.getId() == R.id.LastUpdatesFragment) {
+                bottomNavigationView.getMenu().findItem(R.id.menu_btn_releases).setChecked(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeButtonEnabled(false);
+            } else if (navDestination.getId() == R.id.PlaylistFragment) {
+                bottomNavigationView.getMenu().findItem(R.id.menu_btn_playlist).setChecked(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeButtonEnabled(false);
             }
+
         });
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.menu_btn_search) {
-                    navController.navigate(R.id.SearchFragment);
-                    return true;
-                } else if (item.getItemId() == R.id.menu_btn_releases) {
-                    navController.navigate(R.id.LastUpdatesFragment);
-                    return true;
-                } else if (item.getItemId() == R.id.menu_btn_playlist) {
-                    navController.navigate(R.id.PlaylistFragment);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_btn_search) {
+                navController.navigate(R.id.SearchFragment);
+                return true;
+            } else if (item.getItemId() == R.id.menu_btn_releases) {
+                navController.navigate(R.id.LastUpdatesFragment);
+                return true;
+            } else if (item.getItemId() == R.id.menu_btn_playlist) {
+                navController.navigate(R.id.PlaylistFragment);
+                return true;
             }
+            return false;
         });
     }
 

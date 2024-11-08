@@ -1,8 +1,17 @@
 package com.r4z0r.ocremixplayer.models;
 
+import android.os.Parcelable;
+
 import org.r4z0r.models.SongItem;
 
-public class Musica extends SongItem {
+import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class Musica extends SongItem implements Serializable {
     private String gameTitle;
     private String gameUrl;
     private String gameImageUrl;
@@ -13,27 +22,4 @@ public class Musica extends SongItem {
         this.gameImageUrl = gameImageUrl;
     }
 
-    public String getGameTitle() {
-        return gameTitle;
-    }
-
-    public void setGameTitle(String gameTitle) {
-        this.gameTitle = gameTitle;
-    }
-
-    public String getGameUrl() {
-        return gameUrl;
-    }
-
-    public void setGameUrl(String gameUrl) {
-        this.gameUrl = gameUrl;
-    }
-
-    public String getGameImageUrl() {
-        return gameImageUrl;
-    }
-
-    public void setGameImageUrl(String gameImageUrl) {
-        this.gameImageUrl = gameImageUrl;
-    }
 }

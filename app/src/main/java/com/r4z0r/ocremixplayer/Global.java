@@ -3,6 +3,8 @@ package com.r4z0r.ocremixplayer;
 
 import android.os.Bundle;
 
+import androidx.navigation.NavController;
+
 import com.r4z0r.ocremixplayer.tasks.GetLastSongs;
 
 import org.r4z0r.Wrapper;
@@ -31,6 +33,9 @@ public class Global {
     @Setter
     private int positionListaPesquisa = 0;
 
+    @Setter
+    private NavController navController;
+
     private final List<ResultItemMusic> listaUltimasMusicas = new ArrayList<>();
 
     private final List<ResultItemMusic> listaPesquisaMusica = new ArrayList<>();
@@ -41,6 +46,9 @@ public class Global {
 
     @Setter
     private Bundle searchBundle;
+
+    @Setter
+    private Bundle bundle = new Bundle();
 
     private Global() {
         wrapper = new Wrapper();

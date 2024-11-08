@@ -54,7 +54,9 @@ public class LastUpdatesFragment extends Fragment {
         btnTryAgain = binding.lastUpdateFragmentBtn;
 
         btnTryAgain.setOnClickListener(view1 -> {
-            rvMusica.getScrollListener().resetState();
+            getActivity().runOnUiThread(()->{
+                rvMusica.getScrollListener().resetState();
+            });
             loadMore();
         });
 

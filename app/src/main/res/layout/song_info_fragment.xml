@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tool:context=".fragments.SongInfoFragment">
+
+    <ScrollView
+        android:id="@+id/song_info_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/song_info_titulo_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="32sp"
+                tool:text="Titulo" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/song_info_divider_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_titulo_textView"
+                android:layout_toStartOf="@id/song_info_titulo_textView"
+                android:layout_toEndOf="@id/song_info_titulo_textView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/song_info_artista_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_divider_0"
+                android:layout_marginTop="16dp"
+                android:text="Remix por"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/song_info_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_artista_textView"
+                android:orientation="horizontal"></com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/song_info_divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_chip_group"
+                android:layout_marginVertical="@dimen/fab_margin" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/song_info_label_jogo_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_divider_1"
+                android:layout_marginBottom="16dp"
+                android:text="Jogos"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/song_info_cg_jogos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/song_info_label_jogo_textView" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/song_info_divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_cg_jogos"
+                android:layout_marginVertical="@dimen/fab_margin" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/song_info_label_musicas_originais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_divider_2"
+                android:layout_marginBottom="16dp"
+                android:text="Músicas Originais"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/song_info_cg_musicas_originais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/song_info_label_musicas_originais"
+                android:orientation="horizontal" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <include layout="@layout/opcoes_song_info_fragment" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/song_info_fab_opcoes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="?attr/colorPrimary"
+        app:icon="@drawable/baseline_keyboard_arrow_up_24"
+        app:iconSize="32dp"
+        app:iconTint="@color/white" />
+
+</RelativeLayout>
