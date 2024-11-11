@@ -1,34 +1,63 @@
 package com.r4z0r.ocremixplayer.activities;
 
+import android.content.ComponentName;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.session.MediaController;
+import androidx.media3.session.SessionToken;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.MoreExecutors;
+import com.r4z0r.ocremixplayer.Global;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
+import com.r4z0r.ocremixplayer.components.MiniPlayer;
 import com.r4z0r.ocremixplayer.databinding.ActivityMainBinding;
+import com.r4z0r.ocremixplayer.services.PlaybackService;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import java.util.concurrent.ExecutionException;
+
+@UnstableApi
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private MiniPlayer miniPlayer;
+
     private static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Global global = OCRemixPlayerApplication.mInstance.getGlobal();
+
+        global.setSessionToken(new SessionToken(this, new ComponentName(getApplicationContext(), PlaybackService.class)));
+        ListenableFuture<MediaController> mediacontroleFuture = new MediaController.Builder(getApplicationContext(), global.getSessionToken()).buildAsync();
+        mediacontroleFuture.addListener(() -> {
+            if (mediacontroleFuture.isDone()) {
+                try {
+                    global.setMediaController(mediacontroleFuture.get());
+                    miniPlayer.setListeners();
+                } catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, MoreExecutors.directExecutor());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        miniPlayer = binding.miniPlayer;
+
+        if (OCRemixPlayerApplication.mInstance.getGlobal().getTocando() == null) {
+            miniPlayer.setVisibility(View.GONE);
+        } else {
+            miniPlayer.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

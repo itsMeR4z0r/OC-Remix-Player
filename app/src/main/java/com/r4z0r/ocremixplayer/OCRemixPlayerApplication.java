@@ -2,26 +2,23 @@ package com.r4z0r.ocremixplayer;
 
 import android.app.Application;
 
-import com.r4z0r.ocremixplayer.tasks.GetLastSongs;
-
-import org.r4z0r.models.ResultItemMusic;
-
-import java.util.List;
+import androidx.media3.common.util.UnstableApi;
 
 import lombok.Getter;
 
+@UnstableApi
 @Getter
 public class OCRemixPlayerApplication extends Application {
     public static OCRemixPlayerApplication mInstance;
 
     private Global global;
 
+    @UnstableApi
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         global = Global.getInstance();
     }
-
 
 }

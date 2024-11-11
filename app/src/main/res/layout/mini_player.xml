@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/material_dynamic_neutral_variant20"
+    android:padding="8dp">
+
+    <androidx.media3.ui.DefaultTimeBar
+        android:id="@+id/mini_player_timebar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exo_styled_progress_layout_height" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/mini_player_iv"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_below="@id/mini_player_timebar"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        app:shapeAppearance="@style/RoundedSquare" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mini_player_title"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_alignTop="@id/mini_player_iv"
+        android:layout_marginStart="8dp"
+        android:layout_toStartOf="@id/mini_player_controls"
+        android:layout_toEndOf="@id/mini_player_iv"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        tools:text="Music Title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mini_player_artist"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@id/mini_player_title"
+        android:layout_marginStart="8dp"
+        android:layout_toStartOf="@id/mini_player_controls"
+        android:layout_toEndOf="@id/mini_player_iv"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="?attr/colorPrimary"
+        tools:text="Artist Name" />
+
+    <LinearLayout
+        android:id="@+id/mini_player_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/mini_player_iv"
+        android:layout_alignBottom="@id/mini_player_iv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/mini_player_previous"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="botao de voltar no player"
+            android:src="@drawable/media3_icon_previous" />
+
+        <ImageButton
+            android:id="@+id/mini_player_play"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="botao de play no player"
+            android:src="@drawable/media3_icon_play" />
+
+        <ProgressBar
+            android:id="@+id/mini_player_progress"
+            android:layout_width="40dp"
+            android:layout_height="48dp"
+            android:progressTint="?attr/colorPrimary"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/mini_player_next"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="botao de avancar no player"
+            android:src="@drawable/media3_icon_next" />
+    </LinearLayout>
+</RelativeLayout>

@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.r4z0r.ocremixplayer"
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -31,7 +31,7 @@ android {
         viewBinding true
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 }
 
@@ -42,17 +42,91 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
-    implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT-jar-with-dependencies.jar')
+    implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT.jar')
     implementation libs.core.ktx
+    implementation libs.ext.junit
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    compileOnly 'org.projectlombok:lombok:1.18.34'
-    annotationProcessor 'org.projectlombok:lombok:1.18.34'
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    implementation libs.glide
     // Skip this if you don't want to use integration libraries or configure Glide.
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    annotationProcessor libs.compiler
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm
-    runtimeOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0'
+    runtimeOnly libs.kotlinx.coroutines.core.jvm
 
+    // For media playback using ExoPlayer
+    implementation libs.media3.exoplayer
+
+    // For DASH playback support with ExoPlayer
+    implementation libs.media3.exoplayer.dash
+    // For HLS playback support with ExoPlayer
+    implementation libs.media3.exoplayer.hls
+    // For SmoothStreaming playback support with ExoPlayer
+    implementation libs.media3.exoplayer.smoothstreaming
+    // For RTSP playback support with ExoPlayer
+    implementation libs.media3.exoplayer.rtsp
+    // For ad insertion using the Interactive Media Ads SDK with ExoPlayer
+    implementation libs.media3.exoplayer.ima
+
+    // For loading data using the Cronet network stack
+    implementation libs.media3.datasource.cronet
+    // For loading data using the OkHttp network stack
+    implementation libs.media3.datasource.okhttp
+    // For loading data using librtmp
+    implementation libs.media3.datasource.rtmp
+
+    // For building media playback UIs
+    implementation libs.media3.ui
+    // For building media playback UIs for Android TV using the Jetpack Leanback library
+    implementation libs.media3.ui.leanback
+
+    // For exposing and controlling media sessions
+    implementation libs.media3.session
+
+    // For extracting data from media containers
+    implementation libs.media3.extractor
+
+    // For integrating with Cast
+    implementation libs.media3.cast
+
+    // For scheduling background operations using Jetpack Work's WorkManager with ExoPlayer
+    implementation libs.media3.exoplayer.workmanager
+
+    // For transforming media files
+    implementation libs.media3.transformer
+
+    // For applying effects on video frames
+    implementation libs.media3.effect
+
+    // For muxing media files
+    implementation libs.media3.muxer
+
+    // Utilities for testing media components (including ExoPlayer components)
+    implementation libs.media3.test.utils
+    // Utilities for testing media components (including ExoPlayer components) via Robolectric
+    implementation libs.androidx.media3.test.utils.robolectric
+
+    // Common functionality for reading and writing media containers
+    implementation libs.androidx.media3.container
+    // Common functionality for media database components
+    implementation libs.androidx.media3.database
+    // Common functionality for media decoders
+    implementation libs.androidx.media3.decoder
+    // Common functionality for loading data
+    implementation libs.androidx.media3.datasource
+    // Common functionality used across multiple media libraries
+    implementation libs.androidx.media3.common
+    // Common Kotlin-specific functionality
+    implementation libs.androidx.media3.common.ktx
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation 'org.jsoup:jsoup:1.18.1'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

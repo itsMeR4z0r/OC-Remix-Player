@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 tool:text="Titulo" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/song_info_artista_textView"
-                android:orientation="horizontal"></com.google.android.material.chip.ChipGroup>
+                android:orientation="horizontal" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/song_info_divider_1"
@@ -109,14 +109,15 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/song_info_fab_opcoes"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="?attr/colorPrimary"
         app:icon="@drawable/baseline_keyboard_arrow_up_24"
-        app:iconSize="32dp"
+        app:iconSize="24dp"
+        app:collapsedSize="48dp"
         app:iconTint="@color/white" />
 
 </RelativeLayout>

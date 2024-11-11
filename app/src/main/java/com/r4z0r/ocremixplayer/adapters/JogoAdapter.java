@@ -1,7 +1,5 @@
 package com.r4z0r.ocremixplayer.adapters;
 
-import static com.r4z0r.ocremixplayer.Constants.URL_BASE;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.r4z0r.ocremixplayer.Constants;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.viewHolders.MusicaViewHolder;
@@ -55,9 +54,8 @@ public class JogoAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
         holder.title.setText(jogo.getGameTitle().replace("\"", "").trim());
         holder.artist.setText(jogo.getSystem());
 
-        Glide
-                .with(mContext)
-                .load(URL_BASE + jogo.getSystemImage())
+        Glide.with(mContext)
+                .load(Constants.URL_BASE + jogo.getSystemImage())
                 .placeholder(R.drawable.baseline_games_24)
                 .centerCrop()
                 .into(holder.imageView);

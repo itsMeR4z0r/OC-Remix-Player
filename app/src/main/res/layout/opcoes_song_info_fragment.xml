@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/song_info_rl_opcoes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/song_info_rl_opcoes"
     android:layout_above="@id/song_info_fab_opcoes"
     android:layout_alignParentEnd="true"
     android:layout_margin="@dimen/fab_margin"
     android:layout_marginBottom="8dp"
-    android:visibility="gone">
+    android:visibility="visible">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/song_info_fab_opcoes_compartilhar"
@@ -18,17 +18,19 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
         app:backgroundTint="?attr/colorPrimary"
+        app:collapsedSize="48dp"
         app:icon="@drawable/baseline_share_24"
+        app:iconSize="18dp"
         app:iconTint="@color/white" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/song_info_fab_opcoes_compartilhar"
         android:layout_alignBottom="@id/song_info_fab_opcoes_compartilhar"
         android:layout_toStartOf="@id/song_info_fab_opcoes_compartilhar"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingEnd="16dp"
         android:text="Compartilhar"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -42,21 +44,24 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
         app:backgroundTint="?attr/colorPrimary"
+        app:collapsedSize="48dp"
         app:icon="@drawable/baseline_file_download_24"
+        app:iconSize="18dp"
         app:iconTint="@color/white" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/song_info_fab_opcoes_baixar"
         android:layout_alignBottom="@id/song_info_fab_opcoes_baixar"
         android:layout_toStartOf="@id/song_info_fab_opcoes_baixar"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingEnd="16dp"
         android:text="Baixar"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:iconSize="18dp" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/song_info_fab_opcoes_add_playlist"
@@ -66,17 +71,19 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
         app:backgroundTint="?attr/colorPrimary"
+        app:collapsedSize="48dp"
         app:icon="@drawable/baseline_playlist_add_24"
+        app:iconSize="18dp"
         app:iconTint="@color/white" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/song_info_fab_opcoes_add_playlist"
         android:layout_alignBottom="@id/song_info_fab_opcoes_add_playlist"
         android:layout_toStartOf="@id/song_info_fab_opcoes_add_playlist"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingEnd="16dp"
         android:text="Adicionar na playlist"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -89,17 +96,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         app:backgroundTint="?attr/colorPrimary"
+        app:collapsedSize="48dp"
         app:icon="@drawable/baseline_favorite_border_24"
+        app:iconSize="18dp"
         app:iconTint="@color/white" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/song_info_fab_opcoes_favoritar"
         android:layout_alignBottom="@id/song_info_fab_opcoes_favoritar"
         android:layout_toStartOf="@id/song_info_fab_opcoes_favoritar"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingEnd="16dp"
         android:text="Favoritar"
         android:textColor="@color/white"
         android:textSize="18sp"
