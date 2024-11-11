@@ -109,10 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
         miniPlayer = binding.miniPlayer;
 
-        if (OCRemixPlayerApplication.mInstance.getGlobal().getTocando() == null) {
-            miniPlayer.setVisibility(View.GONE);
-        } else {
+        if (OCRemixPlayerApplication.mInstance.getGlobal().getMediaController()!= null
+                && OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().isPlaying()) {
             miniPlayer.setVisibility(View.VISIBLE);
+        } else {
+            miniPlayer.setVisibility(View.GONE);
         }
     }
 
