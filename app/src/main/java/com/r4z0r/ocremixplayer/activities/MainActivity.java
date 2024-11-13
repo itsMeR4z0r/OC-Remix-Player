@@ -2,9 +2,11 @@ package com.r4z0r.ocremixplayer.activities;
 
 import android.content.ComponentName;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.session.MediaController;
 import androidx.media3.session.SessionToken;
@@ -22,10 +24,6 @@ import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.components.MiniPlayer;
 import com.r4z0r.ocremixplayer.databinding.ActivityMainBinding;
 import com.r4z0r.ocremixplayer.services.PlaybackService;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import java.util.concurrent.ExecutionException;
 

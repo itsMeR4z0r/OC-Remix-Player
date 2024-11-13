@@ -21,14 +21,13 @@ import com.r4z0r.ocremixplayer.adapters.MusicaAdapter;
 import com.r4z0r.ocremixplayer.components.RvMusica;
 import com.r4z0r.ocremixplayer.databinding.SearchFragmentBinding;
 import com.r4z0r.ocremixplayer.tasks.SearchByGame;
+import com.r4z0r.ocremixplayer.tasks.SearchByTitle;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseResultItemGame;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseResultItemMusic;
-import com.r4z0r.ocremixplayer.tasks.SearchByTitle;
 
 import org.r4z0r.models.ResultItemGame;
 import org.r4z0r.models.ResultItemMusic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @OptIn(markerClass = UnstableApi.class)

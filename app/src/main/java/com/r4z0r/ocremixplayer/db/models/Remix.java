@@ -5,7 +5,6 @@ import java.util.List;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
-import io.objectbox.annotation.IndexType;
 
 @Entity
 public class Remix {

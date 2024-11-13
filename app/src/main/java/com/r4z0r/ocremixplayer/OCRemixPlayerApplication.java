@@ -2,7 +2,6 @@ package com.r4z0r.ocremixplayer;
 
 import android.app.Application;
 
-
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;

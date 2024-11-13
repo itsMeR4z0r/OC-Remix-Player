@@ -7,7 +7,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.r4z0r.ocremixplayer.R;
