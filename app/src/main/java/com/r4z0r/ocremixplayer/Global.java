@@ -3,18 +3,15 @@ package com.r4z0r.ocremixplayer;
 
 import android.os.Bundle;
 
-import androidx.media3.common.util.UnstableApi;
-import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.session.MediaController;
 import androidx.media3.session.SessionToken;
 import androidx.navigation.NavController;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.r4z0r.ocremixplayer.components.MiniPlayer;
 
 import org.r4z0r.Wrapper;
 import org.r4z0r.models.ResultItemGame;
 import org.r4z0r.models.ResultItemMusic;
-import org.r4z0r.models.SongInfor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-@UnstableApi
 @Getter
 public class Global {
     private static Global instance = null;
@@ -48,7 +44,8 @@ public class Global {
 
     private final List<ResultItemGame> listaPesquisaJogo = new ArrayList<>();
 
-    private final Wrapper wrapper;
+    @Setter
+    private Wrapper wrapper;
 
     @Setter
     private Bundle searchBundle;

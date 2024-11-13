@@ -3,9 +3,11 @@ package com.r4z0r.ocremixplayer.viewHolders;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.ActionMenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.r4z0r.ocremixplayer.R;
@@ -17,6 +19,7 @@ public class MusicaViewHolder extends RecyclerView.ViewHolder {
     public ImageButton moreButton;
     public RelativeLayout relativeLayout;
     public ImageView imageView;
+    public ProgressBar progressBar;
 
     public MusicaViewHolder(View itemView) {
         super(itemView);
@@ -25,6 +28,7 @@ public class MusicaViewHolder extends RecyclerView.ViewHolder {
         moreButton = (ImageButton) itemView.findViewById(R.id.item_musica_search_more);
         relativeLayout = (RelativeLayout) itemView.findViewById(R.id.item_musica_search_rl);
         imageView = (ImageView) itemView.findViewById(R.id.item_musica_search_iv);
+        progressBar = (ProgressBar) itemView.findViewById(R.id.item_musica_pb);
     }
 
 }

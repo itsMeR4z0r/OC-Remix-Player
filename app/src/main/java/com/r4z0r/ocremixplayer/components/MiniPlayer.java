@@ -105,9 +105,9 @@ public class MiniPlayer extends MaterialCardView {
                     artistTextView.setText(mediaMetadata.artist);
                 }
                 if (mediaMetadata.artworkUri != null) {
-                    Glide.with(getContext()).load(mediaMetadata.artworkUri).into(imageView);
+                    Glide.with(getContext().getApplicationContext()).load(mediaMetadata.artworkUri).into(imageView);
                 } else if (mediaMetadata.artworkData != null) {
-                    Glide.with(getContext()).load(mediaMetadata.artworkData).into(imageView);
+                    Glide.with(getContext().getApplicationContext()).load(mediaMetadata.artworkData).into(imageView);
                 } else {
                     imageView.setImageResource(R.drawable.baseline_games_24);
                 }

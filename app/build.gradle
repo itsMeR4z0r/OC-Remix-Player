@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("com.android.application")
+    id("io.objectbox") // Apply last
 }
 
 android {
@@ -8,15 +8,14 @@ android {
     compileSdk 35
 
     defaultConfig {
+        compileSdk 35
         applicationId "com.r4z0r.ocremixplayer"
         minSdk 24
         targetSdk 35
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -30,9 +29,8 @@ android {
     buildFeatures {
         viewBinding true
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+
+    ndkVersion '28.0.12433566 rc1'
 }
 
 dependencies {
@@ -42,17 +40,18 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    //noinspection GradlePath
     implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT.jar')
     implementation libs.core.ktx
     implementation libs.ext.junit
+    compileOnly libs.lombok.v11834
+    testCompileOnly libs.lombok.v11834
+    annotationProcessor libs.lombok.v11834
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    compileOnly libs.lombok
-    annotationProcessor libs.lombok
+
     implementation libs.glide
-    // Skip this if you don't want to use integration libraries or configure Glide.
-    annotationProcessor libs.compiler
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm
     runtimeOnly libs.kotlinx.coroutines.core.jvm
 
@@ -120,9 +119,13 @@ dependencies {
     implementation libs.androidx.media3.common
     // Common Kotlin-specific functionality
     implementation libs.androidx.media3.common.ktx
-    implementation 'org.slf4j:slf4j-api:2.0.9'
-    implementation 'com.squareup.okhttp:okhttp:2.5.0'
-    implementation 'org.jsoup:jsoup:1.18.1'
+    implementation libs.slf4j.api
+    implementation libs.okhttp
+    implementation libs.jsoup
+    implementation libs.persistentcookiejar
+
+    testImplementation(libs.objectbox.linux.arm64)
+    testImplementation(libs.objectbox.linux.armv7)
 }
 
 java {

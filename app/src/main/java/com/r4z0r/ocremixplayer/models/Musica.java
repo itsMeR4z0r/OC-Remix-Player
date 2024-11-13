@@ -1,13 +1,12 @@
 package com.r4z0r.ocremixplayer.models;
 
-import android.os.Parcelable;
-
 import org.r4z0r.models.SongItem;
 
 import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Setter
 @Getter

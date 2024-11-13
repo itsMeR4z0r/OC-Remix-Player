@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
+import androidx.media3.common.util.UnstableApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
@@ -26,6 +28,7 @@ import org.r4z0r.models.ResultItemMusic;
 import java.util.ArrayList;
 import java.util.List;
 
+@OptIn(markerClass = UnstableApi.class)
 public class LastUpdatesFragment extends Fragment {
     private LastUpdatesFragmentBinding binding;
     private RvMusica rvMusica;
@@ -40,7 +43,7 @@ public class LastUpdatesFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         binding = LastUpdatesFragmentBinding.inflate(inflater, container, false);
-        adapter = new MusicaAdapter(getContext(), new ArrayList<>());
+        adapter = new MusicaAdapter(getContext(),getActivity(), new ArrayList<>());
         return binding.getRoot();
 
     }
@@ -54,9 +57,7 @@ public class LastUpdatesFragment extends Fragment {
         btnTryAgain = binding.lastUpdateFragmentBtn;
 
         btnTryAgain.setOnClickListener(view1 -> {
-            getActivity().runOnUiThread(()->{
-                rvMusica.getScrollListener().resetState();
-            });
+            rvMusica.getScrollListener().resetState();
             loadMore();
         });
 
@@ -72,12 +73,12 @@ public class LastUpdatesFragment extends Fragment {
     }
 
     private void loadMore() {
-        loadingVisivel(true);
+        getActivity().runOnUiThread(() -> loadingVisivel(true));
         new GetLastSongs(OCRemixPlayerApplication.mInstance).execute(new ResponseResultItemMusic() {
             @Override
             public void onInit() {
                 System.out.println("LastUpdatesFragment ==> iniciando consulta");
-                layoutError.setVisibility(View.GONE);
+                getActivity().runOnUiThread(() -> layoutError.setVisibility(View.GONE));
             }
 
             @Override

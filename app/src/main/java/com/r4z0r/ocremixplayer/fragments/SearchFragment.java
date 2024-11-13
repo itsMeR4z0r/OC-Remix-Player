@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
+import androidx.media3.common.util.UnstableApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.button.MaterialButton;
@@ -29,6 +31,7 @@ import org.r4z0r.models.ResultItemMusic;
 import java.util.ArrayList;
 import java.util.List;
 
+@OptIn(markerClass = UnstableApi.class)
 public class SearchFragment extends Fragment {
     private SearchFragmentBinding binding;
     private RvMusica rvMusica;
@@ -65,7 +68,7 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (!OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaMusica().isEmpty()) {
-            rvMusica.setAdapter(new MusicaAdapter(getContext(), OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaMusica()));
+            rvMusica.setAdapter(new MusicaAdapter(getContext(),getActivity(), OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaMusica()));
         } else if (!OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo().isEmpty()) {
             rvMusica.setAdapter(new JogoAdapter(getContext(), OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo()));
         }
@@ -111,6 +114,7 @@ public class SearchFragment extends Fragment {
         binding = null;
     }
 
+    @OptIn(markerClass = UnstableApi.class)
     private void loadMore() {
         if (rbTitulo.isChecked()) {
             new SearchByTitle(OCRemixPlayerApplication.mInstance).execute(new ResponseResultItemMusic() {
@@ -129,7 +133,7 @@ public class SearchFragment extends Fragment {
                     if (getActivity() != null)
                         getActivity()
                                 .runOnUiThread(() -> {
-                                    rvMusica.setAdapter(new MusicaAdapter(getContext(), result));
+                                    rvMusica.setAdapter(new MusicaAdapter(getContext(),getActivity(), result));
                                     loadingVisivel(false);
                                 });
                 }

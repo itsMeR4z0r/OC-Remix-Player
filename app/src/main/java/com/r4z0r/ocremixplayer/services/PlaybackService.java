@@ -5,21 +5,79 @@ import android.content.Intent;
 import androidx.annotation.Nullable;
 import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
+import androidx.media3.database.StandaloneDatabaseProvider;
+import androidx.media3.datasource.DataSink;
+import androidx.media3.datasource.DataSource;
+import androidx.media3.datasource.DefaultHttpDataSource;
+import androidx.media3.datasource.cache.CacheDataSource;
+import androidx.media3.datasource.cache.NoOpCacheEvictor;
+import androidx.media3.datasource.cache.SimpleCache;
 import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.offline.DownloadManager;
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
 import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaSessionService;
 
-import kotlin.jvm.internal.markers.KMutableList;
+import java.io.File;
+import java.util.concurrent.Executor;
+
+import lombok.Getter;
 
 
 @UnstableApi
 public class PlaybackService extends MediaSessionService {
-
     private MediaSession mediaSession = null;
     private Player player;
 
+    @Getter
+    private DownloadManager downloadManager;
+    private StandaloneDatabaseProvider databaseProvider;
+    private SimpleCache downloadCache;
+    private DataSource.Factory dataSourceFactory;
+    private DataSource.Factory cacheDataSourceFactory;
+    private Executor downloadExecutor;
+
     private void initializeSessionAndPlayer() {
-        player = new ExoPlayer.Builder(this).build();
+        File cacheDir = new File(getCacheDir() + File.separator + "media");
+
+        if (!cacheDir.exists()) {
+            if (cacheDir.mkdirs()) {
+                System.out.println("Directory created");
+            } else {
+                System.out.println("Directory not created");
+            }
+        }
+
+        // Note: This should be a singleton in your app.
+        databaseProvider = new StandaloneDatabaseProvider(getApplicationContext());
+
+        // A download cache should not evict media, so should use a NoopCacheEvictor.
+        downloadCache = new SimpleCache(cacheDir, new NoOpCacheEvictor(), databaseProvider);
+
+        // Create a factory for reading the data from the network.
+        dataSourceFactory = new DefaultHttpDataSource.Factory();
+
+        downloadExecutor = Runnable::run;
+
+        // Create the download manager.
+        downloadManager =
+                new DownloadManager(
+                        getApplicationContext(), databaseProvider, downloadCache, dataSourceFactory, downloadExecutor);
+
+
+        // Create a read-only cache data source factory using the download cache.
+        cacheDataSourceFactory =
+                new CacheDataSource.Factory()
+                        .setCache(downloadCache)
+                        .setUpstreamDataSourceFactory(dataSourceFactory);
+
+        player = new ExoPlayer
+                .Builder(this)
+                .setMediaSourceFactory(
+                        new DefaultMediaSourceFactory(getApplicationContext())
+                                .setDataSourceFactory(cacheDataSourceFactory))
+                .build();
+
         mediaSession = new MediaSession.Builder(this, player).build();
     }
 
@@ -56,9 +114,6 @@ public class PlaybackService extends MediaSessionService {
         stopSelf();
     }
 
-    private void onAddMediaItems(MediaSession mediaSession, MediaSession.ControllerInfo controller, KMutableList mediaItems) {
-    }
-
     @UnstableApi
     public void onCreate() {
         super.onCreate();
@@ -70,5 +125,4 @@ public class PlaybackService extends MediaSessionService {
     public MediaSession onGetSession(MediaSession.ControllerInfo controllerInfo) {
         return mediaSession;
     }
-
 }

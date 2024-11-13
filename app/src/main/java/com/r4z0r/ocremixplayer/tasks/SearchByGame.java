@@ -2,6 +2,9 @@ package com.r4z0r.ocremixplayer.tasks;
 
 import android.app.Application;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
+
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseResultItemGame;
 
@@ -10,6 +13,7 @@ import org.r4z0r.models.ResultItemGame;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+@OptIn(markerClass = UnstableApi.class)
 public class SearchByGame extends TarefaAbstrata<ResponseResultItemGame> {
     public SearchByGame(Application application) {
         super(((OCRemixPlayerApplication) application).getGlobal(), Executors.newSingleThreadExecutor());
