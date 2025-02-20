@@ -1,14 +1,12 @@
 buildscript {
-    ext.objectboxVersion = "4.0.3" // For Groovy build scripts
-    // val objectboxVersion by extra("4.0.3") // For KTS build scripts
+    ext.objectboxVersion = "4.1.0" // For Groovy build scripts
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        // Android Gradle Plugin 4.1.0 or later supported
-//        classpath(libs.gradle)
+        classpath(libs.gradle)
         classpath("io.objectbox:objectbox-gradle-plugin:$objectboxVersion")
     }
 }

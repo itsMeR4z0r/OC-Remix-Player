@@ -8,28 +8,36 @@ import androidx.media3.common.util.UnstableApi;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseSongInfor;
 
-import org.r4z0r.models.SongInfor;
+import com.r4z0r.ocremixplayer.wrapper.interfaces.OnResponseSongInfo;
+import com.r4z0r.ocremixplayer.wrapper.models.SongInfor;
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 
 @OptIn(markerClass = UnstableApi.class)
-public class GetRemix extends TarefaAbstrata<ResponseSongInfor>{
+public class GetRemix extends TarefaAbstrata<ResponseSongInfor> {
     public GetRemix(Application application) {
         super(((OCRemixPlayerApplication) application).getGlobal(), Executors.newSingleThreadExecutor());
     }
 
     @Override
     public void execute(ResponseSongInfor response, String param) {
-        executorService.execute(() -> {
-            try {
-                response.onInit();
-                SongInfor songInfor = OCRemixPlayerApplication.mInstance.getGlobal().getWrapper().getRemix(param);
-                response.onSuccess(songInfor);
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.onError(e.getMessage());
-            }
-        });
+        response.onInit();
+        try {
+            OCRemixPlayerApplication.mInstance.getGlobal().getWrapper().getRemix(param, new OnResponseSongInfo() {
+                @Override
+                public void onSuccess(SongInfor songInfor) {
+                    response.onSuccess(songInfor);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    response.onError(e.getMessage());
+                }
+            });
+        } catch (IOException e) {
+            response.onError(e.getMessage());
+        }
     }
 
     @Override

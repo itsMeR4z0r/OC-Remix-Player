@@ -6,8 +6,10 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.r4z0r.ocremixplayer.db.ObjectBox;
+import com.r4z0r.ocremixplayer.db.boxes.PlaylistBox;
+import com.r4z0r.ocremixplayer.db.boxes.RemixBox;
 
-import org.r4z0r.Wrapper;
+import com.r4z0r.ocremixplayer.wrapper.Wrapper;
 
 import lombok.Getter;
 import okhttp3.Cache;
@@ -24,8 +26,12 @@ public class OCRemixPlayerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        initGlobal();
+        initDb();
+    }
+
+    private void initGlobal() {
         global = Global.getInstance();
-        ObjectBox.init(getBaseContext());
         global.setWrapper(
                 new Wrapper(
                         new OkHttpClient
@@ -56,4 +62,9 @@ public class OCRemixPlayerApplication extends Application {
         );
     }
 
+    private void initDb() {
+        ObjectBox.init(getApplicationContext());
+        global.setRemixBox(new RemixBox());
+        global.setPlaylistBox(new PlaylistBox());
+    }
 }

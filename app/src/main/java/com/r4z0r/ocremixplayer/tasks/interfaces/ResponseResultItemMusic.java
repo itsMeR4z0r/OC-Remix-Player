@@ -1,6 +1,6 @@
 package com.r4z0r.ocremixplayer.tasks.interfaces;
 
-import org.r4z0r.models.ResultItemMusic;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemMusic;
 
 import java.util.List;
 

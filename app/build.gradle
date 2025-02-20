@@ -41,7 +41,7 @@ dependencies {
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
     //noinspection GradlePath
-    implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT.jar')
+//    implementation files('/home/novavia/IdeaProjects/OCRemix-wrapper/target/OCRemix-wrapper-1.0-SNAPSHOT.jar')
     implementation libs.core.ktx
     implementation libs.ext.junit
     compileOnly libs.lombok.v11834
@@ -53,7 +53,7 @@ dependencies {
 
     implementation libs.glide
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm
-    runtimeOnly libs.kotlinx.coroutines.core.jvm
+//    runtimeOnly libs.kotlinx.coroutines.core.jvm
 
     // For media playback using ExoPlayer
     implementation libs.media3.exoplayer

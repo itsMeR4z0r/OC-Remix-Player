@@ -8,7 +8,8 @@ import androidx.media3.common.util.UnstableApi;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseResultItemGame;
 
-import org.r4z0r.models.ResultItemGame;
+import com.r4z0r.ocremixplayer.wrapper.interfaces.OnResponseResultItemGameList;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemGame;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -21,14 +22,16 @@ public class SearchByGame extends TarefaAbstrata<ResponseResultItemGame> {
 
     @Override
     public void execute(ResponseResultItemGame response, String title) {
-        executorService.execute(() -> {
-            try {
-                response.onInit();
-                List<ResultItemGame> result = global.getWrapper().searchByGameTitle(title);
-                OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo().clear();
-                OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo().addAll(result);
-                response.onSuccess(result);
-            } catch (Exception e) {
+        response.onInit();
+        global.getWrapper().searchByGameTitle(global.getOffsetPesquisa(), title, new OnResponseResultItemGameList() {
+            @Override
+            public void onSuccess(List<ResultItemGame> list) {
+                global.setOffsetPesquisa(global.getOffsetPesquisa() + list.size());
+                response.onSuccess(list);
+            }
+
+            @Override
+            public void onError(Exception e) {
                 response.onError(e.getMessage());
             }
         });
@@ -38,4 +41,5 @@ public class SearchByGame extends TarefaAbstrata<ResponseResultItemGame> {
     public void execute(ResponseResultItemGame response) {
         this.execute(response, "");
     }
+
 }

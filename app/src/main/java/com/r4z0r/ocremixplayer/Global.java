@@ -7,10 +7,11 @@ import androidx.media3.session.SessionToken;
 import androidx.navigation.NavController;
 
 import com.google.common.util.concurrent.ListenableFuture;
-
-import org.r4z0r.Wrapper;
-import org.r4z0r.models.ResultItemGame;
-import org.r4z0r.models.ResultItemMusic;
+import com.r4z0r.ocremixplayer.db.boxes.PlaylistBox;
+import com.r4z0r.ocremixplayer.db.boxes.RemixBox;
+import com.r4z0r.ocremixplayer.wrapper.Wrapper;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemGame;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemMusic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,11 @@ public class Global {
     private
     ListenableFuture<androidx.media3.session.MediaController> mediaControllerFuture;
 
+    @Setter
+    private RemixBox remixBox;
+    @Setter
+    private PlaylistBox playlistBox;
+
     private Global() {
         wrapper = new Wrapper();
     }
@@ -74,5 +80,10 @@ public class Global {
             instance = new Global();
         }
         return instance;
+    }
+
+    public static void cleanSearch() {
+        OCRemixPlayerApplication.mInstance.getGlobal().setOffsetPesquisa(0);
+        OCRemixPlayerApplication.mInstance.getGlobal().getListaPesquisaJogo().clear();
     }
 }

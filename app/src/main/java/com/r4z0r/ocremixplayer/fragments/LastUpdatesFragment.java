@@ -23,7 +23,7 @@ import com.r4z0r.ocremixplayer.databinding.LastUpdatesFragmentBinding;
 import com.r4z0r.ocremixplayer.tasks.GetLastSongs;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseResultItemMusic;
 
-import org.r4z0r.models.ResultItemMusic;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemMusic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class LastUpdatesFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         binding = LastUpdatesFragmentBinding.inflate(inflater, container, false);
-        adapter = new MusicaAdapter(getContext(),getActivity(), new ArrayList<>());
+        adapter = new MusicaAdapter(getContext(), getActivity(), new ArrayList<>());
         return binding.getRoot();
 
     }
@@ -73,12 +73,14 @@ public class LastUpdatesFragment extends Fragment {
     }
 
     private void loadMore() {
-        getActivity().runOnUiThread(() -> loadingVisivel(true));
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> loadingVisivel(true));
         new GetLastSongs(OCRemixPlayerApplication.mInstance).execute(new ResponseResultItemMusic() {
             @Override
             public void onInit() {
                 System.out.println("LastUpdatesFragment ==> iniciando consulta");
-                getActivity().runOnUiThread(() -> layoutError.setVisibility(View.GONE));
+                if (getActivity() != null)
+                    getActivity().runOnUiThread(() -> layoutError.setVisibility(View.GONE));
             }
 
             @Override

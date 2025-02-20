@@ -9,14 +9,14 @@ import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Unique;
 
 @Entity
-public class Playlist {
+public class PlaylistObj {
     @Id
     long id;
 
     @Unique(onConflict = ConflictStrategy.REPLACE)
     String name;
 
-    List<Remix> songs;
+    List<RemixObj> songs;
 
     Date createdAt;
 

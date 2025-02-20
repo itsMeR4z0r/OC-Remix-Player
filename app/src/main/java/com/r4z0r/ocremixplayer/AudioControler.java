@@ -8,7 +8,7 @@ import androidx.media3.common.util.UnstableApi;
 
 import com.r4z0r.ocremixplayer.models.Musica;
 
-import org.r4z0r.models.SongInfor;
+import com.r4z0r.ocremixplayer.wrapper.models.SongInfor;
 
 @UnstableApi
 public class AudioControler {

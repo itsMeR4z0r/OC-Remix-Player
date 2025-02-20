@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.chip.Chip;
@@ -18,8 +17,10 @@ import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.databinding.SongInfoFragmentBinding;
 import com.r4z0r.ocremixplayer.models.Musica;
 
-import org.r4z0r.models.ArtistItem;
-import org.r4z0r.models.SongItem;
+import com.r4z0r.ocremixplayer.wrapper.models.ArtistItem;
+import com.r4z0r.ocremixplayer.wrapper.models.SongItem;
+
+import lombok.NonNull;
 
 public class SongInfoFragment extends Fragment {
     private SongInfoFragmentBinding binding;

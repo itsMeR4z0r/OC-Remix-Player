@@ -2,8 +2,8 @@ package com.r4z0r.ocremixplayer.converter;
 
 import com.r4z0r.ocremixplayer.models.Musica;
 
-import org.r4z0r.models.ResultItemMusic;
-import org.r4z0r.models.SongItem;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemMusic;
+import com.r4z0r.ocremixplayer.wrapper.models.SongItem;
 
 import java.util.ArrayList;
 import java.util.List;

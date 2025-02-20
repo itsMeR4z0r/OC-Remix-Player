@@ -14,7 +14,7 @@ import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.viewHolders.MusicaViewHolder;
 
-import org.r4z0r.models.ResultItemGame;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemGame;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.r4z0r.ocremixplayer.tasks.interfaces;
 
-import org.r4z0r.models.ResultItemGame;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemGame;
 
 import java.util.List;
 

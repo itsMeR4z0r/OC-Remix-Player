@@ -2,7 +2,6 @@ package com.r4z0r.ocremixplayer.services;
 
 import android.content.Intent;
 
-import androidx.annotation.Nullable;
 import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.database.StandaloneDatabaseProvider;
@@ -119,7 +118,6 @@ public class PlaybackService extends MediaSessionService {
         initializeSessionAndPlayer();
     }
 
-    @Nullable
     @Override
     public MediaSession onGetSession(MediaSession.ControllerInfo controllerInfo) {
         return mediaSession;

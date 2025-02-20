@@ -22,15 +22,19 @@ import com.bumptech.glide.Glide;
 import com.r4z0r.ocremixplayer.OCRemixPlayerApplication;
 import com.r4z0r.ocremixplayer.R;
 import com.r4z0r.ocremixplayer.converter.MusicaConverter;
+import com.r4z0r.ocremixplayer.db.ObjectBox;
+import com.r4z0r.ocremixplayer.db.boxes.RemixBox;
+import com.r4z0r.ocremixplayer.db.models.RemixObj;
 import com.r4z0r.ocremixplayer.models.Musica;
 import com.r4z0r.ocremixplayer.tasks.GetRemix;
 import com.r4z0r.ocremixplayer.tasks.interfaces.ResponseSongInfor;
 import com.r4z0r.ocremixplayer.viewHolders.MusicaViewHolder;
 
-import org.r4z0r.models.ArtistItem;
-import org.r4z0r.models.ResultItemMusic;
-import org.r4z0r.models.SongInfor;
+import com.r4z0r.ocremixplayer.wrapper.models.ArtistItem;
+import com.r4z0r.ocremixplayer.wrapper.models.ResultItemMusic;
+import com.r4z0r.ocremixplayer.wrapper.models.SongInfor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
@@ -97,49 +101,81 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaViewHolder> {
         Glide.with(mContext).load(URL_BASE + musica.getGameImageUrl()).placeholder(R.drawable.baseline_games_24).centerCrop().into(holder.imageView);
 
         holder.relativeLayout.setOnClickListener(view -> {
-            new GetRemix(OCRemixPlayerApplication.mInstance).execute(new ResponseSongInfor() {
-                @Override
-                public void onInit() {
-                    mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setLoading(true, holder);
-                        }
-                    });
-                }
+            RemixBox remixBox = OCRemixPlayerApplication.mInstance.getGlobal().getRemixBox();
+            String idRemix = musica.getUrl().substring(musica.getUrl().lastIndexOf("/") + 1);
+            if (remixBox.containsId(idRemix)) {
+                Uri uri = Uri.parse(remixBox.get(idRemix).urlSong);
+                MediaItem mediaItem = MediaItem.fromUri(uri);
+                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setMediaItem(mediaItem);
+                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().prepare();
+                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setPlayWhenReady(true);
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setLoading(false, holder);
+                    }
+                });
+            } else {
+                new GetRemix(OCRemixPlayerApplication.mInstance).execute(new ResponseSongInfor() {
+                    @Override
+                    public void onInit() {
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setLoading(true, holder);
+                            }
+                        });
+                    }
 
-                @Override
-                public void onSuccess(SongInfor songInfor) {
-                    Handler handler = new Handler(OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().getApplicationLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Uri uri = Uri.parse(songInfor.getDownloadList().get(0));
-                            MediaItem mediaItem = MediaItem.fromUri(uri);
-                            OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setMediaItem(mediaItem);
-                            OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().prepare();
-                            OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setPlayWhenReady(true);
-                            mActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    setLoading(false, holder);
-                                }
-                            });
-                        }
-                    });
-                }
+                    @Override
+                    public void onSuccess(SongInfor songInfor) {
+                        RemixObj remixObj = new RemixObj();
+                        remixObj.remixId = idRemix;
+                        remixObj.gameImageUrl = musica.getGameImageUrl();
+                        remixObj.name = musica.getName();
+                        remixObj.urlSong = songInfor.getDownloadList().get(0);
+                        remixObj.artists = new ArrayList<>();
 
-                @Override
-                public void onError(String error) {
-                    mActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setLoading(false, holder);
-                            Toast.makeText(holder.relativeLayout.getContext(), error, Toast.LENGTH_SHORT).show();
+                        for(ArtistItem artistItem : musica.getArtistItemList()){
+                            remixObj.artists.add(artistItem.getName());
                         }
-                    });
-                }
-            }, musica.getUrl());
+
+                        remixObj.gameName = musica.getGameTitle();
+                        remixObj.gameUrl = musica.getGameUrl();
+
+                        remixBox.put(remixObj);
+
+                        Handler handler = new Handler(OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().getApplicationLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Uri uri = Uri.parse(songInfor.getDownloadList().get(0));
+                                MediaItem mediaItem = MediaItem.fromUri(uri);
+                                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setMediaItem(mediaItem);
+                                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().prepare();
+                                OCRemixPlayerApplication.mInstance.getGlobal().getMediaController().setPlayWhenReady(true);
+                                mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setLoading(false, holder);
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setLoading(false, holder);
+                                Toast.makeText(holder.relativeLayout.getContext(), error, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }, musica.getUrl());
+            }
         });
 
 

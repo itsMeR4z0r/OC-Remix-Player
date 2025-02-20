@@ -1,6 +1,6 @@
 package com.r4z0r.ocremixplayer.models;
 
-import org.r4z0r.models.SongItem;
+import com.r4z0r.ocremixplayer.wrapper.models.SongItem;
 
 import java.io.Serializable;
 
