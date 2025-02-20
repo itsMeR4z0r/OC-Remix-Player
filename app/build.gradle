@@ -126,6 +126,12 @@ dependencies {
 
     testImplementation(libs.objectbox.linux.arm64)
     testImplementation(libs.objectbox.linux.armv7)
+
+// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation libs.commons.lang3
+// https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    implementation libs.commons.text
+
 }
 
 java {

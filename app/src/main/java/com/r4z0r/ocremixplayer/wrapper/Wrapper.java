@@ -1,15 +1,21 @@
 package com.r4z0r.ocremixplayer.wrapper;
 
 
+import android.text.TextUtils;
+
 import androidx.annotation.RequiresApi;
 
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 
 import com.r4z0r.ocremixplayer.wrapper.interfaces.OnResponseResultItemGameList;
 import com.r4z0r.ocremixplayer.wrapper.interfaces.OnResponseResultItemMusicList;
@@ -61,28 +67,32 @@ public class Wrapper {
                 Document doc = Jsoup.parse(response.body().string());
 
                 doc.select("#main-content > div:nth-child(2) > div > div:nth-child(2) > section > div > table > tbody > tr").forEach(node -> {
+                    Element tempEle = node.child(1).child(0);
                     ResultItemGame tmp = new ResultItemGame();
-                    tmp.setSystemUrl(node.child(1).child(0).attr("href"));
-                    tmp.setSystem(node.child(1).child(0).child(0).attr("alt"));
-                    tmp.setSystemImage(node.child(1).child(0).child(0).attr("src"));
-                    tmp.setGameUrl(node.child(3).child(1).attr("href"));
-                    tmp.setGameTitle(node.child(3).child(1).text());
-                    tmp.setPublisher(node.child(3).child(3).child(2).text());
-                    tmp.setPublisherUrl(node.child(3).child(3).child(2).attr("href"));
-                    tmp.setYear(Integer.parseInt(node.child(3).child(3).child(3).text().replace(",", "").trim()));
+                    tmp.setSystemUrl(tempEle.attr("href"));
+                    tmp.setSystem(node.childNode(1).childNode(0).childNode(0).attr("alt"));
+                    tmp.setSystemImage(node.childNode(1).childNode(0).childNode(0).attr("src"));
 
-                    node.child(5).childNodes().stream()
+                    tmp.setGameUrl(node.childNode(3).childNode(1).attr("href"));
+                    tmp.setGameTitle(StringEscapeUtils.escapeHtml4(node.childNode(3).childNode(1).childNode(0).outerHtml()));
+                    tmp.setPublisher(StringEscapeUtils.escapeHtml4(node.childNode(3).childNode(3).childNode(2).childNode(0).outerHtml()));
+                    tmp.setPublisherUrl(node.childNode(3).childNode(3).childNode(2).attr("href"));
+                    tmp.setYear(Integer.parseInt(node.childNode(3).childNode(3).childNode(3).outerHtml().replace(",", "").trim()));
+
+                    node.childNode(5).childNodes().stream()
                             .filter(nodeArtista -> nodeArtista.nodeName().equals("a"))
                             .forEach(nodeArtista -> tmp.addArtist(Objects.requireNonNull(nodeArtista.firstChild()).outerHtml(), nodeArtista.attr("href")));
 
-                    tmp.setRemixes(getIntFromNode(node.child(7)));
-                    tmp.setAlbuns(getIntFromNode(node.child(9)));
+                    tmp.setRemixes(getIntFromNode(node.childNode(7)));
+                    tmp.setAlbuns(getIntFromNode(node.childNode(9)));
 
-                    if (!node.child(11).childNodes().isEmpty()) {
+                    if (!node.childNode(11).childNodes().isEmpty()) {
                         tmp.setHasChipTune(true);
-                        tmp.setChipTuneUrl(node.child(11).child(0).attr("href"));
+                        tmp.setChipTuneUrl(node.childNode(11).childNode(0).attr("href"));
                     }
-                    resultItems.add(tmp);
+
+                    if (StringUtils.containsAnyIgnoreCase(tmp.getGameTitle(),gameTitle))
+                        resultItems.add(tmp);
                 });
 
                 onResponseResultItemGameList.onSuccess(resultItems);
@@ -267,7 +277,8 @@ public class Wrapper {
                             Date songDate = null;
                             if (!node.childNode(5).childNodes().isEmpty()) {
                                 try {
-                                    songDate = formatter.parse(node.child(5).text());
+                                    Node dateNode = node.childNode(5);
+                                    songDate = formatter.parse(dateNode.outerHtml());
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -343,7 +354,6 @@ public class Wrapper {
                 }
 
                 Element tmpEle = doc.selectFirst("#main-content > div:nth-child(2) > div > div.container-fluid.container-content.container-highlight.no-bottom-padding > section:nth-child(1) > div > div > section:nth-child(2) > div.col-md-7.col-lg-8 > section:nth-child(1) > div > h1");
-
                 song.setName(Objects.requireNonNull(tmpEle).childNode(2).outerHtml().replace("\"", "").trim());
                 var node = doc.select("#main-content > div:nth-child(2) > div > div.container-fluid.container-content.container-highlight.no-bottom-padding > section:nth-child(1) > div > div > section:nth-child(2) > div.col-md-7.col-lg-8 > section:nth-child(1) > div > h2 > a");
                 for (var artist : node) {
